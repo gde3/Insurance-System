@@ -7,5 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>fff</h1>
+	
+	<a href="insurancepro/forTest/dataSource">test DataSource</a>
+	
+	
 </body>
