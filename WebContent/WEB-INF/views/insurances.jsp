@@ -1,3 +1,5 @@
+<%@page import="com.R254.entities.Insurance"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,8 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
-	<a href="insurancepro/customerOpe/getAllInsurances">test DataSource</a>
-	
-	
+
+	<%
+		List<Insurance> insurances = (List<Insurance>)request.getAttribute("insurances");
+		out.print(insurances.size());
+	%>
+
 </body>
+</html>
