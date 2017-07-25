@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.R254.DAO.CustomerDAO;
 import com.R254.entities.Insurance;
+import com.R254.entities.Query;
 
 @Service
 @Transactional
@@ -19,5 +20,10 @@ public class CustomerService {
 	public List<Insurance> getAllInsurances(){
 		
 		return customerDAO.getAllInsurances();
+	}
+	
+	public List<Query> getAllQuery(){
+		
+		return customerDAO.getAllQuery();
 	}
 }

@@ -1,5 +1,6 @@
 package com.R254.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,16 @@ public class CustomerController {
 	private CustomerService customerService;
 	
 	@RequestMapping(value="getAllInsurances")
-	public String listAllInsurances(Map<String, Object> map){
+	public String listAllInsurances(Map<String, List> map){
 		
 		map.put("insurances", customerService.getAllInsurances());
 		return "insurances";
+	}
+	
+	@RequestMapping(value="accessForum")
+	public String accessForum(Map<String, Object> map){
+		
+		map.put("queries", customerService.getAllQuery());
+		return "forum";
 	}
 }

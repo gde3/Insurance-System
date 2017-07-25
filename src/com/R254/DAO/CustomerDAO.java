@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.R254.entities.Insurance;
+import com.R254.entities.Query;
 
 @Repository
 public class CustomerDAO {
@@ -28,5 +29,15 @@ public class CustomerDAO {
 		insurances = getSession().createQuery(hql).list();
 		
 		return insurances;
+	}
+	
+	public List<Query> getAllQuery(){
+		
+		List<Query> queries = new ArrayList<>();
+		
+		String hql = "From Query";
+		queries = getSession().createQuery(hql).list();
+		
+		return queries;
 	}
 }

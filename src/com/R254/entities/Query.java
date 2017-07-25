@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +22,18 @@ public class Query {
 
 	@Column
 	private String queryDescription;
+
+	@OneToOne
+	@JoinColumn(name = "ansId")
+	private Answer answer;
+
+	public Answer getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
+	}
 
 	public int getQueryId() {
 		return queryId;

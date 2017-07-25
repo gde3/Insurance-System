@@ -23,6 +23,7 @@
 		</property>
 	</bean>
 	
+	<!--  <mvc:view-controller path="/forum" view-name="forum.jsp"/> -->
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />  
 
 </beans>
