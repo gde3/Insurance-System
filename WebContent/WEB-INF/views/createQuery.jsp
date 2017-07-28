@@ -11,6 +11,22 @@
 
 	$(function(){
 		
+		$("#curQuery").css("display", "none");
+		$("#btn").click(function(){
+			
+			var content = $(this).html();
+			
+			if(content == "Click to see all queries you submitted"){
+				
+				$("#curQuery").css("display", "block");
+				$(this).html("Click to hide queries");
+			}else{
+				
+				$("#curQuery").css("display", "none");
+				$(this).html("Click to see all queries you submitted");
+			}
+		});
+		
 		$("#ans").click(function(){
 			
 			var id = $(this).attr('class');
@@ -30,19 +46,17 @@
 </head>
 <body>
 
-	<c:if test="${requestScope.queries == null}">
-		Forum is empty right now ...
-	</c:if>
+	<c:if test="${sessionScope.queries == null }">You never post query before</c:if>
 	
-	<c:if test="${requestScope.queries != null}">
-		<table border="1" cellpadding="10">
+	<c:if test="${sessionScope.queries != null }">
+		<table border="1" cellspacing="10" id="curQuery">
 			<tr>
 				<th>Id</th>
 				<th>Desc</th>
 				<th>Name</th>
 				<th>Solved</th>
 			</tr>
-			<c:forEach items="${requestScope.queries }" var="query">
+			<c:forEach items="${sessionScope.queries }" var="query">
 				<tr>
 					<td>${query.queryId }</td>
 					<td>${query.queryDescription }</td>
@@ -56,8 +70,19 @@
 				</tr>
 			</c:forEach>
 		</table>
-	</c:if><br>
+		<button id="btn">Click to see all queries you submitted</button>
+	</c:if><br><br><br>
 	
-	<a href="/Insurance-System/insurancepro/customerOpe/getCountOfQuery">post a query</a>
+	<form action="/Insurance-System/insurancepro/customerOpe/createQuery" method="post">
+		
+		userId : <input type="text" name="custId" value="${sessionScope.custId }"/><br>
+		queryName : <input type="text" name="queryName"/><br>
+		desc : <input type="text" name="desc"/><br>
+		<input type="submit" value="submit"/>
+	</form>
 </body>
 </html>
+
+
+
+

@@ -2,12 +2,18 @@ package com.R254.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "query")
@@ -24,8 +30,20 @@ public class Query {
 	private String queryDescription;
 
 	@OneToOne
+	@JoinColumn(name = "CustId")
+	private Customer customer;
+
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ansId")
 	private Answer answer;
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 
 	public Answer getAnswer() {
 		return answer;

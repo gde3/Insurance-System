@@ -8,6 +8,53 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<script type="text/javascript" src="/Insurance-System/jquery-1.7.2.js"></script>
+<script type="text/javascript">
+	
+	$(function(){
+		
+		$("a:odd").click(function(){
+			
+			var node = this;
+
+			$.post("/Insurance-System/insurancepro/customerOpe/checkWhetherOrdered",
+					{
+				
+						"custId" : $(node).attr("class"),
+						"insurId" : $(node).attr("id")
+					},
+					function(data){
+						
+						if(data == 1){
+							
+							$.post("/Insurance-System/insurancepro/customerOpe/checkInsuranceDate",
+									{
+								
+										"custId" : $(node).attr("class"),
+										"insurId" : $(node).attr("id")
+									},function(date){
+										
+										var bool = confirm("You've already ordered this insurance and it will ends in " + date + 
+												" ,you can click yes to extend the insurance duration!!!");
+										
+										if(bool){
+											
+											alert("Thanks for purchasing!!!");
+										}else{
+											
+											alert("Hope you can find other insurance which suit for you!!!");
+										}
+									});
+						}else{
+							
+							alert("Not");
+						}
+					});
+			
+			return false;
+		});
+	});
+</script>
 </head>
 <body>
 
@@ -33,7 +80,7 @@
 					<td>${insurance.description }</td>
 					<td>${insurance.insuranceName }</td>
 					<td>${insurance.insurancePrice }</td>
-					<td><a href="">order</a></td>
+					<td><a id="${insurance.insuranceId }" class="${sessionScope.custId }" href="">order</a></td>
 					<td><a href="">delete</a></td>
 				</tr>
 			</c:forEach>

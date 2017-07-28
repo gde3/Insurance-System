@@ -7,12 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	${sessionScope.errorMessage }<br><br>
 	
-	<a href="insurancepro/customerOpe/getAllInsurances">test DataSource</a><br>
-	<form action="/Insurance-System/insurancepro/customerOpe/customerLogin" method="post">
-	
-		username : <input type="text" name="username"/><br>
-		password : <input type="password" name="password"/><br>
-		<input type="submit" value="submit"/>
-	</form>
+	<a href="/Insurance-System/index.jsp">reLogin</a>
+
 </body>
+</html>
