@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.R254.DAO.CustomerDAO;
 import com.R254.entities.Customer;
@@ -18,6 +19,16 @@ public class CustomerService {
 
 	@Autowired
 	private CustomerDAO customerDAO;
+	
+	public Date orderNewInsurance(int custId, int insurId, int duration){
+		
+		return customerDAO.orderNewInsurance(custId, insurId, duration);
+	}
+	
+	public Date extendInsuranceDate(int custId, int insurId, int duration){
+		
+		return customerDAO.extendInsuranceDate(custId, insurId, duration);
+	}
 	
 	public Date checkInsuranceDate(int custId, int insurId){
 		

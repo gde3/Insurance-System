@@ -35,11 +35,62 @@
 									},function(date){
 										
 										var bool = confirm("You've already ordered this insurance and it will ends in " + date + 
-												" ,you can click yes to extend the insurance duration!!!");
+												", you can click yes to extend the insurance duration!!!");
 										
 										if(bool){
 											
-											alert("Thanks for purchasing!!!");
+											var price = $($($($(node).parentsUntil(".row")).parent()).children().eq(3)).html();
+											
+											var options =	 
+													"<td>" + 
+														"<div><input type='radio' name='duration' value='3'/>3 month   <span>" + price * 0.3 + "</span></div>" +
+														"<div><input type='radio' name='duration' value='6'/>6 month   <span>" + price * 0.6 + "</span></div>" +
+														"<div><input type='radio' name='duration' value='12'/>12 month   <span>" + price + "</span></div>" +
+														"<div><input type='radio' name='duration' class='DIY'/>other duration</div>" +
+														"<div><input type='submit' value='purchase'/></div>" +
+													"</td>"
+											$($($(node).parent()).parent()).append(options);
+											
+											$("span").css("display", "none");
+											$("input:radio").on({
+											    mouseenter: function(){
+											        $($($(this).parent()).children("span")).fadeIn();
+											    }, 
+											    mouseleave: function(){
+											    	$($($(this).parent()).children("span")).fadeOut();
+											    }
+											});
+											$(".DIY").on({
+												
+												click:function(){
+													
+													$($(this).parent()).append("<input type='text' class='dur'/>");
+													$(this).unbind("click");
+													$(".dur").focus(function(){
+														
+														$($(this).parent()).children().eq(0).attr("checked", "true");
+													});
+													$(".dur").change(function(){
+														
+														$($(this).parent()).children().eq(0).val($(this).val());
+													});
+												}
+											});
+											$("input:submit").click(function(){
+												
+												$.post("/Insurance-System/insurancepro/customerOpe/extendInsuranceDate",
+														{
+													
+															"custId" : $($($($($(node).parentsUntil(".row")).parent()).children().eq(4)).children().eq(0)).attr("class"),
+															"insurId" : $($($($($(node).parentsUntil(".row")).parent()).children().eq(4)).children().eq(0)).attr("id"),
+															"duration" : $("input:checked").val()
+														},
+														function(date2){
+															
+															alert("Thank you for purchasing and your insurance will end at " + date2);
+														}
+														);
+											});
 										}else{
 											
 											alert("Hope you can find other insurance which suit for you!!!");
@@ -47,7 +98,66 @@
 									});
 						}else{
 							
-							alert("Not");
+							var bool = confirm("You haven't ordered this insurance yet, you can click yes to start this insurance!!!");
+					
+							if(bool){
+								
+								var price = $($($($(node).parentsUntil(".row")).parent()).children().eq(3)).html();
+								
+								var options =	 
+										"<td>" + 
+											"<div><input type='radio' name='duration' value='3'/>3 month   <span>" + price * 0.3 + "</span></div>" +
+											"<div><input type='radio' name='duration' value='6'/>6 month   <span>" + price * 0.6 + "</span></div>" +
+											"<div><input type='radio' name='duration' value='12'/>12 month   <span>" + price + "</span></div>" +
+											"<div><input type='radio' name='duration' class='DIY'/>other duration</div>" +
+											"<div><input type='submit' value='purchase'/></div>" +
+										"</td>"
+								$($($(node).parent()).parent()).append(options);
+								
+								$("span").css("display", "none");
+								$("input:radio").on({
+								    mouseenter: function(){
+								        $($($(this).parent()).children("span")).fadeIn();
+								    }, 
+								    mouseleave: function(){
+								    	$($($(this).parent()).children("span")).fadeOut();
+								    }
+								});
+								$(".DIY").on({
+									
+									click:function(){
+										
+										$($(this).parent()).append("<input type='text' class='dur'/>");
+										$(this).unbind("click");
+										$(".dur").focus(function(){
+											
+											$($(this).parent()).children().eq(0).attr("checked", "true");
+										});
+										$(".dur").change(function(){
+											
+											$($(this).parent()).children().eq(0).val($(this).val());
+										});
+									}
+								});
+								$("input:submit").click(function(){
+									
+									$.post("/Insurance-System/insurancepro/customerOpe/orderNewInsurance",
+											{
+										
+												"custId" : $($($($($(node).parentsUntil(".row")).parent()).children().eq(4)).children().eq(0)).attr("class"),
+												"insurId" : $($($($($(node).parentsUntil(".row")).parent()).children().eq(4)).children().eq(0)).attr("id"),
+												"duration" : $("input:checked").val()
+											},
+											function(date3){
+												
+												alert("Thank you for purchasing and your insurance will end at " + date3);
+											}
+											);
+								});
+							}else{
+								
+								alert("Hope you can find other insurance which suit for you!!!");
+							}
 						}
 					});
 			
@@ -75,7 +185,7 @@
 				<th>DELETE</th>
 			</tr>		
 			<c:forEach items="${requestScope.insurances}" var="insurance">
-				<tr>
+				<tr class="row">
 					<td>${insurance.insuranceId }</td>
 					<td>${insurance.description }</td>
 					<td>${insurance.insuranceName }</td>

@@ -22,6 +22,20 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
+	@RequestMapping(value="orderNewInsurance")
+	@ResponseBody
+	public String orderNewInsurance(@RequestParam int custId, @RequestParam int insurId, @RequestParam int duration){
+		
+		return customerService.orderNewInsurance(custId, insurId, duration) + "";
+	}
+	
+	@RequestMapping(value="extendInsuranceDate")
+	@ResponseBody
+	public String extendInsuranceDate(@RequestParam int custId, @RequestParam int insurId, @RequestParam int duration){
+		
+		return customerService.extendInsuranceDate(custId, insurId, duration) + "";
+	}
+	
 	@RequestMapping(value="checkInsuranceDate")
 	@ResponseBody
 	public String checkInsuranceDate(@RequestParam int custId, @RequestParam int insurId){
